@@ -1,0 +1,55 @@
+{
+  "nodes": [
+    {
+      "id": "ethereum",
+      "label": "Ethereum"
+    },
+    {
+      "id": "layer2",
+      "label": "Layer 2 Scaling"
+    },
+    {
+      "id": "optimism",
+      "label": "Optimism"
+    },
+    {
+      "id": "zkrollups",
+      "label": "ZK-rollups"
+    },
+    {
+      "id": "decentralization",
+      "label": "Decentralization"
+    },
+    {
+      "id": "account_abstraction",
+      "label": "Account Abstraction"
+    }
+  ],
+  "edges": [
+    {
+      "source": "ethereum",
+      "target": "layer2",
+      "relation": "uses"
+    },
+    {
+      "source": "layer2",
+      "target": "optimism",
+      "relation": "is_a"
+    },
+    {
+      "source": "layer2",
+      "target": "zkrollups",
+      "relation": "is_a"
+    },
+    {
+      "source": "ethereum",
+      "target": "decentralization",
+      "relation": "promotes"
+    },
+    {
+      "source": "ethereum",
+      "target": "account_abstraction",
+      "relation": "benefits"
+    }
+  ]
+}
