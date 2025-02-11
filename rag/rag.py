@@ -12,22 +12,37 @@ class VitalikKAG:
         openai.api_key = os.getenv("OPENAI_API_KEY")  # Retrieve API key securely
 
     def retrieve_context(self, query):
-        # Simple mock:  Find nodes related to keywords in the query
+        # Find nodes related to keywords in the query
         relevant_nodes = []
         query_words = query.lower().split()  # Split query into words
+
         for node in self.knowledge_graph['nodes']:
-            for word in query_words:
-                if word in node['label'].lower():
+            node_words = node['label'].lower().split()  # Split node label
+            for word in node_words:
+                if word in query_words:
                     relevant_nodes.append(node)
                     break  # Avoid adding the same node multiple times
 
+        # Add connected nodes
+        for edge in self.knowledge_graph['edges']:
+            if edge['source'] in [n['id'] for n in relevant_nodes]:
+                target_node = next((node for node in self.knowledge_graph['nodes'] if node['id'] == edge['target']), None)
+                if target_node and target_node not in relevant_nodes:
+                    relevant_nodes.append(target_node)
+            if edge['target'] in [n['id'] for n in relevant_nodes]:
+                source_node = next((node for node in self.knowledge_graph['nodes'] if node['id'] == edge['source']), None)
+                if source_node and source_node not in relevant_nodes:
+                    relevant_nodes.append(source_node)
+
         # Return connected nodes and edges as context
         context = {"nodes": relevant_nodes, "edges": []}
+        edges = []
         for edge in self.knowledge_graph['edges']:
             if edge['source'] in [n['id'] for n in relevant_nodes] or \
-               edge['target'] in [n['id'] for n in relevant_nodes]:
-                context['edges'].append(edge)
-
+                    edge['target'] in [n['id'] for n in relevant_nodes]:
+                if edge not in edges:  # avoid duplicates
+                    edges.append(edge)
+        context['edges'] = edges
         return context
 
     def generate_tweet_response(self, query, context):
