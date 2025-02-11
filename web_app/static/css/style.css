@@ -1,0 +1,26 @@
+body {
+    background: #f8f9fa; /* Light gray background for a professional look */
+    min-height: 100vh;
+    color: #333; /* Dark text for readability */
+}
+.navbar {
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent black */
+}
+.container {
+    padding-top: 2rem;
+}
+.card {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    color: #333; /* Dark text for readability */
+}
+.card-content {
+  padding-bottom: 0.1rem;
+}
+pre {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    overflow-x: auto;
+    color: #333;
+    border-radius: 5px;
+}
+

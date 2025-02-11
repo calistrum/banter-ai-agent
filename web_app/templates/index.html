@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vitalik AI Agent</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+      </script>
+    
+</head>
+
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <span class="has-text-weight-bold">Vitalik AI</span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/observability">
+                    Observability
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="card">
+                        <div class="card-content">
+                            <h1 class="title has-text-centered">Vitalik Agent</h1>
+                            <form method="POST">
+                                <div class="field">
+                                    <label class="label" for="query">Tweet subject:</label>
+                                    <div class="control">
+                                        <input class="input" type="text" id="query" name="query"
+                                            placeholder="e.g., Generate a tweet about Layer 2 scaling?">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-primary is-fullwidth" type="submit">Generate
+                                            Tweet</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    {% if query %}
+                    <div class="card mt-4">
+                        <div class="card-content">
+                            <h2 class="subtitle has-text-centered">Generated Tweet</h2>
+                            <div class="content">
+                                <p class="has-text-weight-bold">Subject:</p>
+                                <p class="box">{{ query }}</p>
+                                <p class="has-text-weight-bold">Response:</p>
+                                <p class="box">{{ response }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-content">
+                            <h2 class="subtitle has-text-centered">Knowledge Context Used</h2>
+                            <div class="content">
+                                <details>
+                                    <summary class="has-text-weight-bold">View Context</summary>
+                                    <pre>{{ context }}</pre>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+                <div class="column is-half">
+                        <div class="card-content">
+                            <h2 class="subtitle has-text-centered">Application Architecture</h2>
+                            <div class="content">
+                                <div class="has-text-centered">
+                                    <img src="{{ url_for('static', filename='img/diagram.svg') }}" alt="Application Architecture">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
